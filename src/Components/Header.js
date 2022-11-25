@@ -36,6 +36,7 @@ const Spacer = styled.div`
 
 const Container = styled.div`
   height: 80px;
+  width: 100vw;
   background-color: ${(props) => props.bgColor || '#3c00d3'};
   color: white;
   display: flex;

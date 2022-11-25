@@ -28,6 +28,7 @@ export default ReviewStats;
 
 const StatsContainer = styled.div`
   height: 80px;
+  width: 100%;
   background-color: #007bd3;
   color: white;
   display: flex;
