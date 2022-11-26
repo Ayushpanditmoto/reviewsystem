@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { ReviewContext } from '../Context/ReviewContext';
 
-function ReviewStats({ data }) {
-  const totalReviews = data.length;
-  const totalRating = data.reduce((acc, curr) => {
+function ReviewStats() {
+  const { reviews } = useContext(ReviewContext);
+
+  const totalReviews = reviews.length;
+  const totalRating = reviews.reduce((acc, curr) => {
     if (curr.rating) {
       return acc + curr.rating;
     } else {
@@ -17,7 +20,7 @@ function ReviewStats({ data }) {
   return (
     <>
       <StatsContainer>
-        <h1>Total Reviews: {data.length}</h1>
+        <h1>Total Reviews: {reviews.length}</h1>
         <h1>Average Rating: {isNaN(averageRating) ? 0 : averageRating}</h1>
       </StatsContainer>
     </>

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
+import { ReviewContext } from '../Context/ReviewContext';
 
 function RatingSelect({ select }) {
+  const { reviewEdit } = useContext(ReviewContext);
   const [selected, setSelected] = useState(10);
 
   const handleChange = (e) => {
@@ -9,6 +11,11 @@ function RatingSelect({ select }) {
     setSelected(e.target.value);
     select(e.target.value);
   };
+  useEffect(() => {
+    if (reviewEdit.isEdit === true) {
+      setSelected(reviewEdit.item.rating);
+    }
+  }, [reviewEdit]);
 
   return (
     <>

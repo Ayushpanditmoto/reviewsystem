@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Card from './card';
 import styled from 'styled-components';
 import BUTTON from './button';
 import RatingSelect from './RatingSelect';
+import { ReviewContext } from '../Context/ReviewContext';
 
-function ReviewForm({ handleAdd }) {
+function ReviewForm() {
+  const { handleAdd, reviewEdit, updateReview } = useContext(ReviewContext);
   const [text, setText] = useState('');
   let [rating, setRating] = useState(10);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    if (reviewEdit.isEdit === true) {
+      setBtnDisabled(false);
+      setText(reviewEdit.item.review);
+      setRating(reviewEdit.item.rating);
+    }
+  }, [reviewEdit]);
 
   const handleChange = (e) => {
     if (text === '') {
@@ -32,9 +42,14 @@ function ReviewForm({ handleAdd }) {
       rating,
       review: text,
     };
-    handleAdd(newRating);
-    setText('');
-    setBtnDisabled(true);
+
+    if (reviewEdit.isEdit === true) {
+      updateReview(reviewEdit.item.id, newRating);
+    } else {
+      handleAdd(newRating);
+      setText('');
+      setBtnDisabled(true);
+    }
   };
 
   return (

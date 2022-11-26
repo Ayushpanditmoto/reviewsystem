@@ -1,12 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AiFillGithub } from 'react-icons/ai';
+import { AiFillGithub, AiFillHome } from 'react-icons/ai';
+import { FaQuestionCircle } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 function Header() {
   return (
     <>
       <Container bgColor='#00b3d3'>
-        <Spacer></Spacer>
+        <Spacer>
+          <NavLink to='/'>
+            <AiFillHome size={30} style={{ color: 'white' }} />
+          </NavLink>
+          <NavLink to='/about'>
+            <FaQuestionCircle size={30} style={{ color: 'white' }} />
+          </NavLink>
+        </Spacer>
         <HeaderLeft>
           <h1>Review System</h1>
         </HeaderLeft>
@@ -32,6 +41,11 @@ const Spacer = styled.div`
   height: 80px;
   display: flex;
   flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  .active {
+    color: #00b3d3;
+  }
 `;
 
 const Container = styled.div`

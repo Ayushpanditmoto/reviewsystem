@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaEdit } from 'react-icons/fa';
+import { ReviewContext } from '../Context/ReviewContext';
 
-function ReviewCard({ data, handleDelete }) {
+function ReviewCard({ data }) {
+  const { editReview, handleDelete } = useContext(ReviewContext);
   return (
     <>
       <Card>
         {data.rating && <Circle>{data.rating}</Circle>}
         <h1>{data.review}</h1>
+        <EditButton
+          onClick={() => {
+            editReview(data);
+          }}
+        >
+          <FaEdit size={20} />
+        </EditButton>
         <CloseButton
           onClick={() => {
             handleDelete(data.id);
@@ -45,6 +54,17 @@ const CloseButton = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+`;
+
+const EditButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 40px;
   background-color: transparent;
   border: none;
   color: inherit;

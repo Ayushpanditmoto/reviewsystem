@@ -1,32 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from './Components/Header';
 import ReviewBodys from './Components/ReviewBody';
-import data from './Components/data';
+// import data from './Components/data';
 import ReviewStats from './Components/ReviewStats';
 import ReviewForm from './Components/ReviewForm';
 import styled from 'styled-components';
+import { Route, Routes } from 'react-router-dom';
+import About from './Pages/About';
+import { ReviewProvider } from './Context/ReviewContext';
 
 function App() {
-  const [reviews, setReviews] = useState(data);
-
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this review?')) {
-      const newReviews = reviews.filter((review) => review.id !== id);
-      setReviews(newReviews);
-    }
-  };
-  const handleAdd = (newReview) => {
-    console.log(newReview);
-    setReviews([newReview, ...reviews]);
-  };
   return (
     <>
-      <Review>
-        <Header />
-        <ReviewForm handleAdd={handleAdd} />
-        <ReviewStats data={reviews} />
-        <ReviewBodys data={reviews} handleDelete={handleDelete} />
-      </Review>
+      <ReviewProvider>
+        <Review>
+          <Header />
+          <Routes>
+            <Route
+              exact
+              path='/'
+              element={
+                <>
+                  <ReviewForm />
+                  <ReviewStats />
+                  <ReviewBodys />
+                </>
+              }
+            ></Route>
+            <Route exact path='/about' element={<About />} />
+          </Routes>
+        </Review>
+      </ReviewProvider>
     </>
   );
 }

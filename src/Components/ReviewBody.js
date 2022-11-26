@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ReviewContext } from '../Context/ReviewContext';
 import styled from 'styled-components';
 import ReviewCard from './ReviewCard';
 import Card from './card';
 
-function ReviewBody({ data, handleDelete }) {
-  if (!data || data.length === 0) {
+function ReviewBody() {
+  const { reviews } = useContext(ReviewContext);
+
+  if (!reviews || reviews.length === 0) {
     return (
       <>
         <ReviewBodys>
@@ -20,14 +23,8 @@ function ReviewBody({ data, handleDelete }) {
     <>
       <ReviewBodys>
         <div>
-          {data.map((review) => {
-            return (
-              <ReviewCard
-                key={review.id}
-                data={review}
-                handleDelete={handleDelete}
-              />
-            );
+          {reviews.map((review) => {
+            return <ReviewCard key={review.id} data={review} />;
           })}
         </div>
       </ReviewBodys>
