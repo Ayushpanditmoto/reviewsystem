@@ -15,11 +15,15 @@ function App() {
       setReviews(newReviews);
     }
   };
+  const handleAdd = (newReview) => {
+    console.log(newReview);
+    setReviews([newReview, ...reviews]);
+  };
   return (
     <>
       <Review>
         <Header />
-        <ReviewForm />
+        <ReviewForm handleAdd={handleAdd} />
         <ReviewStats data={reviews} />
         <ReviewBodys data={reviews} handleDelete={handleDelete} />
       </Review>
